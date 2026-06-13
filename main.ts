@@ -24,8 +24,8 @@ const TOPCHARTS_ENDPOINT = 'http://localhost:3000/events';
     const parsedRows = mapCiscCup(rows);
     console.log('parsed teams', parsedRows);
     await submitTopCharts(
-      'TEST-CISCCUP-1',
-      'TEST-CISCCUP-1',
+      'TEST-CISCCUP-4',
+      'TEST-CISCCUP-4',
       new Date(),
       parsedRows
     );
@@ -56,7 +56,7 @@ function mapCiscCup(rows:any[][]):ParsedTeamRow[] {
 }
 
 type ParsedTeamRow = {team: string, results: ParsedTeamPoints[] }
-type ParsedTeamPoints = { eventCode: string, points: number }
+type ParsedTeamPoints = { eventCode: string, points: string }
 
 
 async function submitTopCharts(
@@ -74,7 +74,7 @@ async function submitTopCharts(
         eventName: teamResult.eventCode,
         topic: topic,
         participantId: teamRow.team,
-        points: Number(teamResult.points)
+        points: Number(teamResult.points.replace(",", "."))
       }
     })
   })
